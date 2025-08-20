@@ -10,6 +10,11 @@ import { Contacto } from './components/contenedor/contacto/contacto';
 import { AcercaDe } from './components/contenedor/acerca-de/acerca-de';
 import { Login } from './components/logueo/login/login';
 
+
+import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
+import {ToastrModule} from "ngx-toastr";
+import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     App,
@@ -22,7 +27,11 @@ import { Login } from './components/logueo/login/login';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+     ModalModule,
+    ToastrModule.forRoot(),
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners()
