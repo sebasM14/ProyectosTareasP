@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-listar-proyecto',
@@ -6,6 +8,24 @@ import { Component } from '@angular/core';
   templateUrl: './listar-proyecto.html',
   styleUrl: './listar-proyecto.css'
 })
-export class ListarProyecto {
+export class ListarProyecto  implements OnInit {
+ 
+
+  constructor(
+    private router :Router,
+ private dialog: MatDialog
+  ) 
+  {
+
+   }
+
+  ngOnInit(): void {
+
+  }
+
+  cargarProyectos():void{
+    
+  }
+ 
 
 }
