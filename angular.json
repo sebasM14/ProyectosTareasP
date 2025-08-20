@@ -66,10 +66,12 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ProyectosTareasP:build:production"
+              "buildTarget": "ProyectosTareasP:build:production",
+              "port": 4300
             },
             "development": {
-              "buildTarget": "ProyectosTareasP:build:development"
+              "buildTarget": "ProyectosTareasP:build:development",
+              "port": 4200
             }
           },
           "defaultConfiguration": "development"
@@ -98,5 +100,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "ba9766fe-d70b-44b5-96cc-c4a92d0d1c28"
   }
 }
