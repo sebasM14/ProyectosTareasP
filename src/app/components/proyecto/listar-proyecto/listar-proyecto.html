@@ -1,1 +1,77 @@
-<p>listar-proyecto works!</p>
+<div class="container">
+  <div class="header">
+    <h1>Gestión de Proyectos</h1>
+    <button mat-raised-button color="primary" (click)="crearProyecto()">
+      <mat-icon>add</mat-icon>
+      Nuevo Proyecto
+    </button>
+  </div>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Lista de Proyectos</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <!-- Buscador -->
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Buscar proyectos</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (input)="filtrarProyectos()" 
+                 placeholder="Buscar por nombre, usuario, email o ciudad">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Loading -->
+      <div *ngIf="isLoading" class="loading-container">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Cargando proyectos...</p>
+      </div>
+
+      <!-- Lista de proyectos -->
+      <div *ngIf="!isLoading">
+        <!-- Mensaje si no hay proyectos -->
+        <div *ngIf="proyectosFiltrados.length === 0" class="no-projects">
+          <mat-icon>inbox</mat-icon>
+          <p>{{ searchTerm ? 'No se encontraron proyectos que coincidan con la búsqueda' : 'No hay proyectos registrados' }}</p>
+        </div>
+
+        <!-- Grid de proyectos -->
+        <div class="projects-grid" *ngIf="proyectosFiltrados.length > 0">
+          <mat-card *ngFor="let proyecto of proyectosFiltrados; trackBy: trackByProyectoId" class="project-card">
+            <mat-card-header>
+              <mat-card-title>{{ proyecto.username }}</mat-card-title>
+              <mat-card-subtitle>{{ proyecto.name }}</mat-card-subtitle>
+            </mat-card-header>
+            
+            <mat-card-content>
+              <div class="project-details">
+                <p><strong>Email:</strong> {{ proyecto.email }}</p>
+                <p><strong>Dirección:</strong> {{ obtenerDireccionCompleta(proyecto) }}</p>
+                <p><strong>Ciudad:</strong> {{ proyecto.city }}</p>
+                <p><strong>Código postal:</strong> {{ proyecto.zipcode }}</p>
+                <p><strong>Coordenadas:</strong> {{ obtenerCoordenadas(proyecto) }}</p>
+              </div>
+            </mat-card-content>
+            
+            <mat-card-actions align="end">
+              <button mat-button color="primary" (click)="verTareas(proyecto.id)">
+                <mat-icon>task</mat-icon>
+                Ver Tareas
+              </button>
+              <button mat-button color="accent" (click)="editarProyecto(proyecto.id)">
+                <mat-icon>edit</mat-icon>
+                Editar
+              </button>
+              <button mat-button color="warn" (click)="eliminarProyecto(proyecto.id, proyecto.name)">
+                <mat-icon>delete</mat-icon>
+                Eliminar
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

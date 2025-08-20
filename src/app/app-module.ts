@@ -23,6 +23,16 @@ import { ListarTareas } from './components/tareas/listar-tareas/listar-tareas';
 import { CrearTareas } from './components/tareas/crear-tareas/crear-tareas';
 import { AdministrarTareas } from './components/tareas/administrar-tareas/administrar-tareas';
 import { ActualizarTareas } from './components/tareas/actualizar-tareas/actualizar-tareas';
+import { ConfirmacionModal } from './components/confirmacion-modal/confirmacion-modal/confirmacion-modal';
+
+// Importa los módulos de Angular Material necesarios
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @NgModule({
   declarations: [
     App,
@@ -39,15 +49,22 @@ import { ActualizarTareas } from './components/tareas/actualizar-tareas/actualiz
     ListarTareas,
     CrearTareas,
     AdministrarTareas,
-    ActualizarTareas
+    ActualizarTareas,
+    ConfirmacionModal
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-     ModalModule,
+    ModalModule,
     ToastrModule.forRoot(),
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatDialogModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners()
