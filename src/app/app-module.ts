@@ -15,6 +15,14 @@ import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
 import {ToastrModule} from "ngx-toastr";
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ListarProyecto } from './components/proyecto/listar-proyecto/listar-proyecto';
+import { CrearProyecto } from './components/proyecto/crear-proyecto/crear-proyecto';
+import { AdministrarProyecto } from './components/proyecto/administrar-proyecto/administrar-proyecto';
+import { ActualizarProyecto } from './components/proyecto/actualizar-proyecto/actualizar-proyecto';
+import { ListarTareas } from './components/tareas/listar-tareas/listar-tareas';
+import { CrearTareas } from './components/tareas/crear-tareas/crear-tareas';
+import { AdministrarTareas } from './components/tareas/administrar-tareas/administrar-tareas';
+import { ActualizarTareas } from './components/tareas/actualizar-tareas/actualizar-tareas';
 @NgModule({
   declarations: [
     App,
@@ -23,7 +31,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
     Error,
     Contacto,
     AcercaDe,
-    Login
+    Login,
+    ListarProyecto,
+    CrearProyecto,
+    AdministrarProyecto,
+    ActualizarProyecto,
+    ListarTareas,
+    CrearTareas,
+    AdministrarTareas,
+    ActualizarTareas
   ],
   imports: [
     BrowserModule,
