@@ -25,7 +25,7 @@
 
       <!-- Loading -->
       <div *ngIf="isLoading" class="loading-container">
-        <mat-spinner diameter="50"></mat-spinner>
+        <mat-spinner diameter="50" color="primary"></mat-spinner>
         <p>Cargando proyectos...</p>
       </div>
 
@@ -35,6 +35,10 @@
         <div *ngIf="proyectosFiltrados.length === 0" class="no-projects">
           <mat-icon>inbox</mat-icon>
           <p>{{ searchTerm ? 'No se encontraron proyectos que coincidan con la búsqueda' : 'No hay proyectos registrados' }}</p>
+          <button *ngIf="!searchTerm" mat-raised-button color="primary" (click)="crearProyecto()" style="margin-top: 16px;">
+            <mat-icon>add</mat-icon>
+            Crear primer proyecto
+          </button>
         </div>
 
         <!-- Grid de proyectos -->
@@ -56,15 +60,15 @@
             </mat-card-content>
             
             <mat-card-actions align="end">
-              <button mat-button color="primary" (click)="verTareas(proyecto.id)">
+              <button mat-raised-button color="primary" (click)="verTareas(proyecto.id)">
                 <mat-icon>task</mat-icon>
                 Ver Tareas
               </button>
-              <button mat-button color="accent" (click)="editarProyecto(proyecto.id)">
+              <button mat-raised-button color="accent" (click)="editarProyecto(proyecto.id)">
                 <mat-icon>edit</mat-icon>
                 Editar
               </button>
-              <button mat-button color="warn" (click)="eliminarProyecto(proyecto.id, proyecto.name)">
+              <button mat-raised-button color="warn" (click)="eliminarProyecto(proyecto.id, proyecto.name)">
                 <mat-icon>delete</mat-icon>
                 Eliminar
               </button>

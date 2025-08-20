@@ -1,1 +1,94 @@
-<p>listar-tareas works!</p>
+<div class="container">
+  <div class="header">
+    <button mat-button color="primary" (click)="volverAProyectos()" class="btn-volver">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a Proyectos
+    </button>
+    
+    <h1>Tareas del Proyecto</h1>
+    
+    <button mat-raised-button color="primary" (click)="crearTarea()">
+      <mat-icon>add</mat-icon>
+      Nueva Tarea
+    </button>
+  </div>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Lista de Tareas</mat-card-title>
+      <mat-card-subtitle *ngIf="proyectoNombre">{{ proyectoNombre }}</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <!-- Buscador -->
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Buscar tareas</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (input)="filtrarTareas()" 
+                 placeholder="Buscar por título o estado (completada/pendiente)">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Loading -->
+      <div *ngIf="isLoading" class="loading-container">
+        <mat-spinner diameter="50" color="primary"></mat-spinner>
+        <p>Cargando tareas...</p>
+      </div>
+
+      <!-- Lista de tareas -->
+      <div *ngIf="!isLoading">
+        <!-- Mensaje si no hay tareas -->
+        <div *ngIf="tareasFiltradas.length === 0" class="no-tasks">
+          <mat-icon>assignment</mat-icon>
+          <p>{{ searchTerm ? 'No se encontraron tareas que coincidan con la búsqueda' : 'No hay tareas registradas' }}</p>
+          <button *ngIf="!searchTerm" mat-raised-button color="primary" (click)="crearTarea()" style="margin-top: 16px;">
+            <mat-icon>add</mat-icon>
+            Crear primera tarea
+          </button>
+        </div>
+
+        <!-- Lista de tareas -->
+        <div class="tasks-list" *ngIf="tareasFiltradas.length > 0">
+          <mat-card *ngFor="let tarea of tareasFiltradas; trackBy: trackByTareaId" class="task-card">
+            <mat-card-content>
+              <div class="task-header">
+                <mat-checkbox [checked]="tarea.completed" (change)="toggleCompletada(tarea)"
+                              color="primary" class="task-checkbox">
+                  <span class="task-title" [class.completed]="tarea.completed">
+                    {{ tarea.title }}
+                  </span>
+                </mat-checkbox>
+                
+                <span class="task-status" [class.completed]="tarea.completed">
+                  {{ tarea.completed ? '✅ Completada' : '⏳ Pendiente' }}
+                </span>
+              </div>
+              
+              <div class="task-details">
+                <p><strong>ID:</strong> {{ tarea.id }}</p>
+                <p><strong>Usuario ID:</strong> {{ tarea.userId }}</p>
+                <p><strong>Estado:</strong> 
+                  <span [class.text-success]="tarea.completed" [class.text-warning]="!tarea.completed">
+                    {{ tarea.completed ? 'Completada' : 'Pendiente' }}
+                  </span>
+                </p>
+              </div>
+            </mat-card-content>
+            
+            <mat-card-actions align="end">
+              <button mat-raised-button color="accent" (click)="editarTarea(tarea.id)">
+                <mat-icon>edit</mat-icon>
+                Editar
+              </button>
+              <button mat-raised-button color="warn" (click)="eliminarTarea(tarea.id, tarea.title)">
+                <mat-icon>delete</mat-icon>
+                Eliminar
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

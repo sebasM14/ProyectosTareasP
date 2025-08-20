@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -42,18 +43,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     Contacto,
     AcercaDe,
     Login,
-    ListarProyecto,
-    CrearProyecto,
-    AdministrarProyecto,
-    ActualizarProyecto,
-    ListarTareas,
-    CrearTareas,
-    AdministrarTareas,
-    ActualizarTareas,
+  
+    
     ConfirmacionModal
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ModalModule,
     ToastrModule.forRoot(),

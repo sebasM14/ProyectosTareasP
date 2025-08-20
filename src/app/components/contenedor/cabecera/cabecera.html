@@ -1,40 +1,63 @@
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+<nav class="navbar navbar-expand-lg p-3 text-dark bg-body-secondary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <!--ACA VA MI IMAGEN-->
-
-  
+    <a class="navbar-brand" href="#" [routerLink]="['/home']">
+     
+      <!---YEISON -------->
+      Mi Aplicación
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contacto</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Acerca De</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Operaciones
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Listar</a></li>
-            <li><a class="dropdown-item" href="#">Registrar </a></li>
+        
+        <ng-container *ngIf="isAuthenticated">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#" [routerLink]="['/home']">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" [routerLink]="['/contact']">Contacto</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" [routerLink]="['/aboutMe']">Acerca De</a>
+          </li>
+          
+          <!-- Menú Proyectos -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Proyectos
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" [routerLink]="['/proyectos']">Listar Proyectos</a></li>
+              <li><a class="dropdown-item" href="#" [routerLink]="['/proyectos/crear']">Crear Proyecto</a></li>
             </ul>
-        </li>
-        </ul>
-        <div class="navbar-nav">
-          <span class="nav-item">
-            <a href="#" class="nav-link">Inicio Sesion</a>
-          </span>
-        </div>      
+          </li>
+
+          <
+        
+        
+        </ng-container>
+      </ul>
+      
+      <div class="navbar-nav">
+        
+        <span class="nav-item" *ngIf="!isAuthenticated">
+          <a href="#" class="nav-link" [routerLink]="['/login']">Iniciar Sesión</a>
+        </span>
+        
+        <span class="nav-item dropdown" *ngIf="isAuthenticated">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ currentUser?.name }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
+            <li><a class="dropdown-item" href="#">Configuración</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" (click)="logout($event)">Cerrar Sesión</a></li>
+          </ul>
+        </span>
+      </div>      
     </div>
   </div>
 </nav>

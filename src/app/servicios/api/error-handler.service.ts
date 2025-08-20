@@ -9,11 +9,7 @@ export class ErrorHandlerService {
 
   constructor(private snackBar: MatSnackBar) {}
 
-  /**
-   * Maneja errores HTTP y muestra un mensaje al usuario
-   * @param error El error HTTP recibido
-   * @param customMessage Mensaje personalizado opcional
-   */
+  
   handleError(error: HttpErrorResponse, customMessage?: string): void {
     console.error('Error occurred:', error);
     
@@ -51,10 +47,7 @@ export class ErrorHandlerService {
     this.mostrarError(errorMessage);
   }
 
-  /**
-   * Muestra un mensaje de error usando Angular Material Snackbar
-   * @param message Mensaje a mostrar
-   */
+ 
   private mostrarError(message: string): void {
     this.snackBar.open(message, 'Cerrar', {
       duration: 5000,
@@ -64,10 +57,7 @@ export class ErrorHandlerService {
     });
   }
 
-  /**
-   * Muestra un mensaje de éxito
-   * @param message Mensaje a mostrar
-   */
+  
   mostrarExito(message: string): void {
     this.snackBar.open(message, 'Cerrar', {
       duration: 3000,
@@ -77,10 +67,7 @@ export class ErrorHandlerService {
     });
   }
 
-  /**
-   * Muestra un mensaje de advertencia
-   * @param message Mensaje a mostrar
-   */
+
   mostrarAdvertencia(message: string): void {
     this.snackBar.open(message, 'Cerrar', {
       duration: 4000,

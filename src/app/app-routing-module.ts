@@ -6,13 +6,26 @@ import { AcercaDe } from './components/contenedor/acerca-de/acerca-de';
 import { Login } from './components/logueo/login/login';
 import { AuthGuard } from './guardian/auth-guard';
 
-
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: Inicio },
-  { path: 'contact', component: Contacto },
-  { path: 'aboutMe', component: AcercaDe },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirigir a login por defecto
   { path: 'login', component: Login },
+  
+  // Rutas protegidas
+  { 
+    path: 'home', 
+    component: Inicio,
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'contact', 
+    component: Contacto,
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'aboutMe', 
+    component: AcercaDe,
+    canActivate: [AuthGuard] 
+  },
 
   /********* RUTAS DE PROYECTOS ********** */
   {
@@ -25,10 +38,18 @@ const routes: Routes = [
   },
 
   /********* RUTAS DE TAREAS ********** */
- 
+  {
+    path: 'proyectos/:id/tareas',
+    loadChildren: () =>
+      import('./components/tareas/tareas.module').then(
+        (m) => m.TareasModule
+      ),
+    canActivate: [AuthGuard],
+  },
+
 
   /********* RUTA POR DEFECTO (404) ********** */
-  { path: '**', redirectTo: '/home' },
+  { path: '**', redirectTo: '/login' }, 
 ];
 
 @NgModule({

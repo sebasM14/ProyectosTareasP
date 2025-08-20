@@ -23,7 +23,7 @@ export class ConfirmacionModal {
     public dialogRef: MatDialogRef<ConfirmacionModal>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmacionModalData
   ) {
-    // Establecer valores por defecto
+   
     this.data.textoConfirmar = this.data.textoConfirmar || 'Confirmar';
     this.data.textoCancelar = this.data.textoCancelar || 'Cancelar';
     this.data.colorConfirmar = this.data.colorConfirmar || 'warn';

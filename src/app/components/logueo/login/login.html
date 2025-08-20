@@ -1,0 +1,74 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h2>Bienvenido</h2>
+      <p>Ingresa a tu cuenta</p>
+    </div>
+    
+    <div class="login-content">
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <!-- Campo User -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Usuario</mat-label>
+          <input matInput 
+                 [(ngModel)]="username" 
+                 name="username" 
+                 required
+                 placeholder="Ingresa tu nombre de usuario"
+                 #userInput="ngModel">
+          <mat-icon matPrefix>person</mat-icon>
+          <mat-error *ngIf="userInput.invalid && userInput.touched">
+            El usuario es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Campo Contra -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput 
+                 type="password" 
+                 [(ngModel)]="password" 
+                 name="password" 
+                 required
+                 placeholder="Ingresa tu contraseña"
+                 #passInput="ngModel">
+          <mat-icon matPrefix>lock</mat-icon>
+          <mat-error *ngIf="passInput.invalid && passInput.touched">
+            La contraseña es requerida
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Mensaje de error -->
+        <div *ngIf="errorMessage" class="error-message">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <!-- Botón de login -->
+        <button mat-raised-button 
+                color="primary" 
+                type="submit" 
+                class="full-width login-button"
+                [disabled]="isLoading">
+          <span *ngIf="!isLoading">
+            <mat-icon>login</mat-icon>
+            Iniciar Sesión
+          </span>
+          <span *ngIf="isLoading">
+            <mat-spinner diameter="20" class="loading-spinner"></mat-spinner>
+            Iniciando sesión...
+          </span>
+        </button>
+
+       
+        <div class="login-hint">
+          <p>
+            <strong>Demo:</strong> Para esta demostración, puedes usar 
+            <strong>cualquier usuario y contraseña</strong>. 
+            El sistema simulará un inicio de sesión exitoso.
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
