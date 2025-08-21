@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +23,7 @@ import { ActualizarProyecto } from './actualizar-proyecto/actualizar-proyecto';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormularioProyecto } from './formulario-proyecto/formulario-proyecto';
+import { Dash } from './dash/dash';
 
 const routes: Routes = [
   { path: '', component: ListarProyecto },
@@ -34,7 +35,7 @@ const routes: Routes = [
   declarations: [
     ListarProyecto,
     CrearProyecto, 
-    ActualizarProyecto, FormularioProyecto
+    ActualizarProyecto, FormularioProyecto, Dash
   ],
   imports: [
     CommonModule,
@@ -57,6 +58,8 @@ const routes: Routes = [
     MatSnackBarModule,
     MatTableModule, 
     MatPaginatorModule 
-  ]
+  ], schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
+
+
 export class ProyectosModule { }

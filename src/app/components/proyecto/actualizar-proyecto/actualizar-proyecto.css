@@ -1,0 +1,776 @@
+.container {
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  color: #3f51b5;
+  font-size: 32px;
+  margin: 0;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.loading-container p {
+  margin-top: 20px;
+  color: #718096;
+  font-size: 16px;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: #f44336;
+}
+
+.error-container mat-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
+}
+
+.error-container p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .header h1 {
+    font-size: 28px;
+  }
+}
+
+.btn-volver {
+  background-color: #1976d2; /* Azul Material */
+  color: white !important;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 8px;
+  text-transform: none; /* Evita mayúsculas forzadas */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-volver:hover {
+  background-color: #1565c0; /* Azul más oscuro */
+  transform: translateY(-2px);
+}
+
+.btn-volver:active {
+  background-color: #0d47a1; /* Azul profundo */
+  transform: scale(0.97);
+}
+
+/*.. Contenedor Principal */
+.container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f9f9fc 0%, #eef1f7 100%);
+  min-height: 100vh;
+}
+
+/*.. Encabezado */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: rgba(102, 126, 234, 0.9);
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.header button {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  transition: all 0.3s ease !important;
+  border-radius: 10px !important;
+  padding: 10px 18px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  position: relative !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+}
+
+.header button:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-3px) scale(1.03) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25) !important;
+}
+
+.header button mat-icon {
+  color: white !important;
+}
+
+/*.. Contenedor de tabla */
+.table-container {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*.. Tarjeta principal */
+mat-card {
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  border: none !important;
+  background: white !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  position: relative !important;
+}
+
+mat-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12) !important;
+}
+
+/*.. Header de Tarjeta */
+mat-card-header {
+  background: linear-gradient(135deg, #f8faff 0%, #e4e9f7 100%) !important;
+  padding: 20px 24px !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+mat-card-title {
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  color: #2d3748 !important;
+  margin: 0 !important;
+  text-align: center !important;
+}
+
+/*.. Contenedor de búsqueda */
+.search-container {
+  margin-bottom: 28px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #f8faff 0%, #e4e9f7 100%);
+  border-radius: 16px;
+  border-left: 4px solid #667eea;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+  transition: all 0.3s ease;
+}
+
+.search-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+}
+
+.search-container mat-form-field {
+  width: 100% !important;
+}
+
+.search-container .mat-form-field-appearance-outline .mat-form-field-outline {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 12px !important;
+  border: 2px solid transparent !important;
+  transition: all 0.3s ease !important;
+}
+
+.search-container .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline {
+  border-color: #667eea !important;
+  box-shadow: 0 0 15px rgba(102, 126, 234, 0.3) !important;
+}
+
+.search-container input {
+  font-size: 16px !important;
+  color: #2d3748 !important;
+  padding: 12px !important;
+}
+
+/*.. Contenedor de scroll horizontal */
+.table-scroll-container {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/*.. Contenedor de tabla mejorado */
+.mat-elevation-z2 {
+  min-width: 1300px;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  border: 1px solid #e6eaf0 !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+  background: white !important;
+  transition: all 0.3s ease !important;
+}
+
+.mat-elevation-z2:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
+}
+
+/*.. Tabla */
+table {
+  width: 100% !important;
+  background: transparent !important;
+}
+
+/*.. Headers de tabla con gradiente */
+.mat-header-cell {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  padding: 20px 16px !important;
+  border-bottom: none !important;
+  position: relative !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+.mat-header-cell::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4ecdc4, #44a08d, #667eea);
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/*.. Filas de tabla */
+.mat-row {
+  transition: all 0.3s ease !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  position: relative !important;
+}
+
+.mat-row:nth-child(even) {
+  background: linear-gradient(135deg, #f9f9fc 0%, #f6f8fb 100%) !important;
+}
+
+.mat-row:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(78, 205, 196, 0.08)) !important;
+  transform: translateX(4px) !important;
+  box-shadow: 4px 0 15px rgba(102, 126, 234, 0.15) !important;
+  border-left: 4px solid #667eea !important;
+}
+
+/*.. Celdas de tabla */
+.mat-cell {
+  padding: 18px 16px !important;
+  font-size: 15px !important;
+  color: #2d3748 !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  position: relative !important;
+}
+
+.mat-cell:first-child {
+  font-weight: 700 !important;
+  color: #667eea !important;
+}
+
+/*.. Botones de acción espectaculares */
+.mat-cell:last-child {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 80px !important;
+  padding: 12px 8px !important;
+}
+
+/* Base para todos los botones de acción */
+table button,
+.mat-table button,
+td button,
+.mat-cell button,
+button[mat-icon-button] {
+  min-width: -1px !important;
+  width: 80px !important;
+  height: 58px !important;
+  border-radius: 1% !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  margin: 2px 0 !important;
+  padding: 0 !important;
+  line-height: 2 !important;
+  font-weight: 900 !important;
+}
+
+/* Iconos dentro de los botones */
+table button mat-icon,
+.mat-table button mat-icon,
+td button mat-icon,
+.mat-cell button mat-icon,
+button[mat-icon-button] mat-icon {
+  font-size: 14px !important;
+  width: 302px !important;
+  height: 22px !important;
+  color: white !important;
+  margin: 0 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Efecto shine para botones */
+table button::after,
+.mat-table button::after,
+td button::after,
+.mat-cell button::after,
+button[mat-icon-button]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+}
+
+table button:hover::after,
+.mat-table button:hover::after,
+td button:hover::after,
+.mat-cell button:hover::after,
+button[mat-icon-button]:hover::after {
+  left: 150%;
+}
+
+/*.. Botón Ver/Visualizar (Azul gradiente) */
+table button[color="primary"],
+.mat-table button[color="primary"],
+td button[color="primary"],
+.mat-cell button[color="primary"],
+button[mat-icon-button][color="primary"] {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+  color: white !important;
+}
+
+table button[color="primary"]:hover,
+.mat-table button[color="primary"]:hover,
+td button[color="primary"]:hover,
+.mat-cell button[color="primary"]:hover,
+button[mat-icon-button][color="primary"]:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1) !important;
+  transform: translateY(-3px) scale(1.05) !important;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6) !important;
+}
+
+/*.. Botón Editar (Verde gradiente) */
+table button[color="accent"],
+.mat-table button[color="accent"],
+td button[color="accent"],
+.mat-cell button[color="accent"],
+button[mat-icon-button][color="accent"] {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d) !important;
+  box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4) !important;
+  color: white !important;
+}
+
+table button[color="accent"]:hover,
+.mat-table button[color="accent"]:hover,
+td button[color="accent"]:hover,
+.mat-cell button[color="accent"]:hover,
+button[mat-icon-button][color="accent"]:hover {
+  background: linear-gradient(135deg, #38b2ac, #319795) !important;
+  transform: translateY(-3px) scale(1.05) !important;
+  box-shadow: 0 10px 30px rgba(78, 205, 196, 0.6) !important;
+}
+
+/*.. Botón Eliminar (Rojo gradiente) */
+table button[color="warn"],
+.mat-table button[color="warn"],
+td button[color="warn"],
+.mat-cell button[color="warn"],
+button[mat-icon-button][color="warn"] {
+  background: linear-gradient(135deg, #ff6b6b, #ee5253) !important;
+  box-shadow: 0 20px 20px rgba(255, 107, 107, 0.4) !important;
+  color: white !important;
+}
+
+table button[color="warn"]:hover,
+.mat-table button[color="warn"]:hover,
+td button[color="warn"]:hover,
+.mat-cell button[color="warn"]:hover,
+button[mat-icon-button][color="warn"]:hover {
+  background: linear-gradient(135deg, #e53e3e, #c53030) !important;
+  transform: translateY(-3px) scale(1.05) !important;
+  box-shadow: 0 10px 30px rgba(255, 107, 107, 0.6) !important;
+}
+
+/* Efecto de clic para todos los botones */
+table button:active,
+.mat-table button:active,
+td button:active,
+.mat-cell button:active,
+button[mat-icon-button]:active {
+  transform: translateY(-1px) scale(0.98) !important;
+  transition: all 0.1s ease !important;
+}
+
+/*.. Paginador espectacular */
+mat-paginator {
+  background: linear-gradient(135deg, #f8faff 0%, #e4e9f7 100%) !important;
+  border-top: 2px solid #667eea !important;
+  border-radius: 0 0 20px 20px !important;
+  padding: 20px !important;
+  font-weight: 500 !important;
+  color: #2d3748 !important;
+  box-shadow: inset 0 2px 4px rgba(102, 126, 234, 0.1) !important;
+}
+
+/*.. Ajustar anchos de columnas específicas */
+.mat-column-id {
+  width: 60px;
+  max-width: 60px;
+}
+
+.mat-column-name {
+  width: 150px;
+  min-width: 150px;
+}
+
+.mat-column-username {
+  width: 100px;
+  min-width: 100px;
+}
+
+.mat-column-email {
+  width: 200px;
+  min-width: 200px;
+}
+
+.mat-column-city {
+  width: 120px;
+  min-width: 120px;
+}
+
+.mat-column-direccion {
+  width: 220px;
+  min-width: 220px;
+}
+
+.mat-column-coordenadas {
+  width: 180px;
+  min-width: 180px;
+}
+
+.mat-column-phone {
+  width: 140px;
+  min-width: 140px;
+}
+
+.mat-column-website {
+  width: 150px;
+  min-width: 150px;
+}
+
+.mat-column-company {
+  width: 150px;
+  min-width: 150px;
+}
+
+.mat-column-acciones {
+  width: 180px;
+  min-width: 180px;
+  text-align: center;
+}
+
+/*.. Responsive design */
+@media (max-width: 1024px) {
+  .container {
+    padding: 20px;
+  }
+  
+  .header {
+    padding: 20px;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+  
+  .header h1 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .header {
+    padding: 16px;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+  }
+  
+  .search-container {
+    padding: 16px;
+  }
+  
+  .mat-cell, .mat-header-cell {
+    padding: 12px 8px !important;
+    font-size: 13px !important;
+  }
+  
+  .mat-cell:last-child {
+    min-width: 60px !important;
+    padding: 8px 4px !important;
+  }
+  
+  .mat-row {
+    min-height: 140px !important;
+  }
+  
+  table button,
+  .mat-table button,
+  td button,
+  .mat-cell button,
+  button[mat-icon-button] {
+    width: 40px !important;
+    height: 40px !important;
+    margin: 1px 0 !important;
+  }
+  
+  table button mat-icon,
+  .mat-table button mat-icon,
+  td button mat-icon,
+  .mat-cell button mat-icon,
+  button[mat-icon-button] mat-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+/*.. Animaciones adicionales */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.mat-row:hover .mat-cell button {
+  animation: pulse 2s infinite;
+}
+
+/*.. Estados de focus para accesibilidad */
+table button:focus,
+.mat-table button:focus,
+td button:focus,
+.mat-cell button:focus,
+button[mat-icon-button]:focus {
+  outline: 3px solid rgba(102, 126, 234, 0.5) !important;
+  outline-offset: 3px !important;
+}
+
+/*.. Mejoras de contraste */
+.mat-row:hover .mat-cell {
+  color: #1a202c !important;
+  font-weight: 600 !important;
+}
+
+.container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.table-container {
+  width: 100%;
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-table {
+  width: 100%;
+}
+
+/* Estilos para la paginación */
+mat-paginator {
+  margin-top: 20px;
+}
+
+/* Estilos para los botones de acción */
+button[mat-icon-button] {
+  margin: 0 4px;
+}
+
+
+/*.. Contenedor Principal */
+.container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f9f9fc 0%, #eef1f7 100%);
+  min-height: 100vh;
+}
+
+/*.. Encabezado */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: rgba(102, 126, 234, 0.9);
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.header button {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  transition: all 0.3s ease !important;
+  border-radius: 10px !important;
+  padding: 10px 18px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  position: relative !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+}
+
+.header button:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-3px) scale(1.03) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25) !important;
+}
+
+.header button mat-icon {
+  color: white !important;
+}
+
+/*.. Contenedor de tabla */
+.table-container {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

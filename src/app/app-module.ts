@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
@@ -33,6 +33,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { Dash } from './components/proyecto/dash/dash'; 
 
 @NgModule({
   declarations: [
@@ -43,9 +45,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     Contacto,
     AcercaDe,
     Login,
-  
-    
+
     ConfirmacionModal
+    
   ],
   imports: [
     BrowserModule,
@@ -60,11 +62,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners()
-  ],
+  ], schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   bootstrap: [App]
+  
 })
 export class AppModule { }

@@ -1,0 +1,21 @@
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.modal-content {
+  font-size: 15px;
+  color: #444;
+  margin: 12px 0;
+}
+
+.modal-actions {
+  margin-top: 16px;
+}
+
+button {
+  min-width: 100px;
+  font-weight: 500;
+}

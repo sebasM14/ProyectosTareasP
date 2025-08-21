@@ -36,22 +36,31 @@ export class ListarTareas implements OnInit {
   cargarTareas(): void {
     this.isLoading = true;
     this.apiService.obtenerTareasPorProyecto(this.proyectoId).subscribe({
-      next: (tareas) => {
-        this.tareas = tareas;
-        this.tareasFiltradas = tareas;
+      next: (tareasApi) => {
+        // Obtener tareas y mostarlar en interfaz
+        const tareasMock = this.apiService.getTareasMock();
+        const tareasFiltradasMock = tareasMock.filter(t => t.userId === this.proyectoId);
+        
+        this.tareas = [...tareasApi, ...tareasFiltradasMock];
+        this.tareasFiltradas = this.tareas;
         this.isLoading = false;
         
-        if (tareas.length > 0) {
+        if (this.tareas.length > 0) {
           this.proyectoNombre = `Proyecto ${this.proyectoId}`;
         }
       },
       error: (error) => {
-        console.error('Error cargando tareas:', error);
-        this.snackBar.open('Error al cargar las tareas', 'Cerrar', {
-          duration: 3000,
-          panelClass: ['error-snackbar']
-        });
+        console.error('Error cargando tareas API:', error);
+        const tareasMock = this.apiService.getTareasMock();
+        const tareasFiltradasMock = tareasMock.filter(t => t.userId === this.proyectoId);
+        
+        this.tareas = tareasFiltradasMock;
+        this.tareasFiltradas = this.tareas;
         this.isLoading = false;
+        
+        this.snackBar.open('Cargando tareas locales', 'Cerrar', {
+          duration: 3000,
+        });
       }
     });
   }
@@ -64,7 +73,7 @@ export class ListarTareas implements OnInit {
 
     const term = this.searchTerm.toLowerCase();
     this.tareasFiltradas = this.tareas.filter(tarea =>
-      tarea.title.toLowerCase().includes(term) ||
+      (tarea.title && tarea.title.toLowerCase().includes(term)) ||
       (tarea.completed ? 'completada' : 'pendiente').includes(term)
     );
   }
@@ -96,7 +105,7 @@ export class ListarTareas implements OnInit {
               duration: 3000,
               panelClass: ['success-snackbar']
             });
-            this.cargarTareas();
+            this.cargarTareas(); // Recargar la lista
           },
           error: (error) => {
             console.error('Error eliminando tarea:', error);
@@ -143,6 +152,4 @@ export class ListarTareas implements OnInit {
   trackByTareaId(index: number, tarea: Tareas): number {
     return tarea.id;
   }
-
-
 }

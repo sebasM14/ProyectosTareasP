@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { ApiService } from '../../../servicios/api/api.service';
 import { Proyectos } from '../../../models/proyectos';
 import { ConfirmacionModal } from '../../confirmacion-modal/confirmacion-modal/confirmacion-modal';
@@ -10,13 +12,28 @@ import { ConfirmacionModal } from '../../confirmacion-modal/confirmacion-modal/c
   selector: 'app-listar-proyecto',
   standalone: false,
   templateUrl: './listar-proyecto.html',
-  styleUrl: './listar-proyecto.css'
+  styleUrls: ['./listar-proyecto.css']
 })
 export class ListarProyecto implements OnInit {
-  proyectos: Proyectos[] = [];
-  proyectosFiltrados: Proyectos[] = [];
+  displayedColumns: string[] = [
+   'id',
+  'name',
+  'username',
+  'email',
+  'city',
+  'direccion',
+  'coordenadas',
+  'phone',
+  'website',
+  'company',
+  'acciones'
+  ];
+
+  dataSource = new MatTableDataSource<Proyectos>([]);
   isLoading = true;
   searchTerm = '';
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private apiService: ApiService,
@@ -29,38 +46,33 @@ export class ListarProyecto implements OnInit {
     this.cargarProyectos();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   cargarProyectos(): void {
     this.isLoading = true;
     this.apiService.obtenerProyectos().subscribe({
-      next: (proyectos) => {
-        this.proyectos = proyectos;
-        this.proyectosFiltrados = proyectos;
+      next: (proyectosApi) => {
+        const proyectosMock = this.apiService.getProyectosMock();
+        const proyectos = [...proyectosApi, ...proyectosMock];
+        this.dataSource.data = proyectos;
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error cargando proyectos:', error);
-        this.snackBar.open('Error al cargar los proyectos', 'Cerrar', {
-          duration: 3000,
-          panelClass: ['error-snackbar']
-        });
+        console.error('Error cargando proyectos API:', error);
+        this.dataSource.data = this.apiService.getProyectosMock();
         this.isLoading = false;
+
+        this.snackBar.open('Cargando proyectos locales', 'Cerrar', {
+          duration: 3000,
+        });
       }
     });
   }
 
-  filtrarProyectos(): void {
-    if (!this.searchTerm) {
-      this.proyectosFiltrados = this.proyectos;
-      return;
-    }
-
-    const term = this.searchTerm.toLowerCase();
-    this.proyectosFiltrados = this.proyectos.filter(proyecto =>
-      proyecto.username.toLowerCase().includes(term) ||
-      proyecto.name.toLowerCase().includes(term) ||
-      proyecto.email.toLowerCase().includes(term) ||
-      proyecto.city.toLowerCase().includes(term)
-    );
+  applyFilter(): void {
+    this.dataSource.filter = this.searchTerm.trim().toLowerCase();
   }
 
   verTareas(proyectoId: number): void {
@@ -94,7 +106,7 @@ export class ListarProyecto implements OnInit {
               duration: 3000,
               panelClass: ['success-snackbar']
             });
-            this.cargarProyectos(); // Recargar la lista
+            this.cargarProyectos();
           },
           error: (error) => {
             console.error('Error eliminando proyecto:', error);
@@ -108,17 +120,11 @@ export class ListarProyecto implements OnInit {
     });
   }
 
-  trackByProyectoId(index: number, proyecto: Proyectos): number {
-    return proyecto.id;
-  }
-
-  // Método para obtener la dirección completa
   obtenerDireccionCompleta(proyecto: Proyectos): string {
-    return `${proyecto.street}, ${proyecto.suite}, ${proyecto.city}, ${proyecto.zipcode}`;
+    return `${proyecto.address.street}, ${proyecto.address.suite}, ${proyecto.address.city}, ${proyecto.address.zipcode}`;
   }
 
-  // Método para obtener las coordenadas
   obtenerCoordenadas(proyecto: Proyectos): string {
-    return `Lat: ${proyecto.lat}, Lng: ${proyecto.lng}`;
+    return `Lat: ${proyecto.address.geo.lat}, Lng: ${proyecto.address.geo.lng}`;
   }
 }

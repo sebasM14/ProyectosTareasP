@@ -23,6 +23,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ListarTareas } from './listar-tareas/listar-tareas';
 import { CrearTareas } from './crear-tareas/crear-tareas';
 import { ActualizarTareas } from './actualizar-tareas/actualizar-tareas';
+import { FormularioTareas } from './formulario-tareas/formulario-tareas';
+import { Dash } from '../proyecto/dash/dash';
 
 // Components
 
@@ -37,7 +39,9 @@ const routes: Routes = [
   declarations: [
     ListarTareas,
     CrearTareas,
-    ActualizarTareas
+    ActualizarTareas,
+    FormularioTareas,
+    
   ],
   imports: [
     CommonModule,

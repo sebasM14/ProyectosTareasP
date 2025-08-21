@@ -1,1 +1,23 @@
-<p>crear-tareas works!</p>
+<div class="container">
+  <div class="header">
+    <button mat-button color="primary" (click)="volverATareas()" class="btn-volver">
+      Volver a Tareas
+    </button>
+    <h1>Crear Nueva Tarea</h1>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <app-formulario-tareas
+        [proyectoId]="proyectoId"
+        (guardar)="onGuardarTarea($event)"
+        (cancelar)="onCancelar()">
+      </app-formulario-tareas>
+
+      <div *ngIf="isLoading" class="loading-overlay">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Creando tarea...</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

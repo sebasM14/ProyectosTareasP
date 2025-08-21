@@ -1,14 +1,15 @@
+
+
 <div class="container">
   <div class="header">
+    
     <button mat-button color="primary" (click)="volverAProyectos()" class="btn-volver">
-      <mat-icon>arrow_back</mat-icon>
-      Volver a Proyectos
+        Volver a Proyectos
     </button>
     
     <h1>Tareas del Proyecto</h1>
     
     <button mat-raised-button color="primary" (click)="crearTarea()">
-      <mat-icon>add</mat-icon>
       Nueva Tarea
     </button>
   </div>
@@ -26,7 +27,6 @@
           <mat-label>Buscar tareas</mat-label>
           <input matInput [(ngModel)]="searchTerm" (input)="filtrarTareas()" 
                  placeholder="Buscar por título o estado (completada/pendiente)">
-          <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
 
@@ -43,7 +43,6 @@
           <mat-icon>assignment</mat-icon>
           <p>{{ searchTerm ? 'No se encontraron tareas que coincidan con la búsqueda' : 'No hay tareas registradas' }}</p>
           <button *ngIf="!searchTerm" mat-raised-button color="primary" (click)="crearTarea()" style="margin-top: 16px;">
-            <mat-icon>add</mat-icon>
             Crear primera tarea
           </button>
         </div>
@@ -78,11 +77,9 @@
             
             <mat-card-actions align="end">
               <button mat-raised-button color="accent" (click)="editarTarea(tarea.id)">
-                <mat-icon>edit</mat-icon>
                 Editar
               </button>
               <button mat-raised-button color="warn" (click)="eliminarTarea(tarea.id, tarea.title)">
-                <mat-icon>delete</mat-icon>
                 Eliminar
               </button>
             </mat-card-actions>

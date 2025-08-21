@@ -12,11 +12,8 @@ export class AuthService {
 
   constructor(private router: Router) {
     this.checkAuthStatus();
+
     
-    // Si ya está autenticado al iniciar, redirigir a home
-    if (this.isAuthenticated) {
-      this.router.navigate(['/home']);
-    }
   }
 
   login(username: string, password: string): Observable<boolean> {
@@ -31,10 +28,8 @@ export class AuthService {
         localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
         
-        // Redirigir a la página principal después del login
-        this.router.navigate(['/home']);
-        
-        observer.next(true);
+        console.log('Login exitoso para usuario:', username);
+        observer.next(true); // ← Asegúrate de emitir true
         observer.complete();
       }, 1000);
     });
@@ -45,8 +40,6 @@ export class AuthService {
     this.currentUser = null;
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('currentUser');
-    
-    // Redirigir al login después del logout
     this.router.navigate(['/login']);
   }
 

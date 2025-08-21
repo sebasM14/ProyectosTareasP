@@ -1,0 +1,19 @@
+<h2 mat-dialog-title class="modal-title">
+  <mat-icon *ngIf="data.mostrarIcono" [ngStyle]="{ color: data.colorIcono }">
+    {{ data.icono }}
+  </mat-icon>
+  {{ data.titulo }}
+</h2>
+
+<mat-dialog-content class="modal-content">
+  <p>{{ data.mensaje }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="modal-actions">
+  <button mat-stroked-button (click)="cancelar()">
+    {{ data.textoCancelar }}
+  </button>
+  <button mat-raised-button [color]="data.colorConfirmar" (click)="confirmar()">
+    {{ data.textoConfirmar }}
+  </button>
+</mat-dialog-actions>

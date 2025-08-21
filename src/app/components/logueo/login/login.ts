@@ -8,7 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-export class Login {username = '';
+export class Login {
+   username = '';
   password = '';
   isLoading = false;
   errorMessage = '';
@@ -18,7 +19,7 @@ export class Login {username = '';
     private router: Router,
     private route: ActivatedRoute
   ) {
-    // Si ya el usuario esta  autenticado, redirigir a home
+    // Si ya está logueado, mándalo al home
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/home']);
     }
@@ -37,10 +38,13 @@ export class Login {username = '';
       next: (success) => {
         this.isLoading = false;
         if (success) {
-         
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+          this.router.navigate([returnUrl]);
+        } else {
+          this.errorMessage = 'Credenciales incorrectas';
         }
       },
-      error: (error) => {
+      error: () => {
         this.isLoading = false;
         this.errorMessage = 'Error en el login. Por favor, intenta nuevamente.';
       }

@@ -1,0 +1,25 @@
+
+ 
+  <div class="container">
+  <div class="header">
+    
+    <button mat-button color="primary" (click)="volverAProyectos()" class="btn-volver">
+        Volver a Proyectos
+    </button>
+    
+   
+  </div>
+<div class="container">
+  <div class="header">
+    <h1>Crear Nuevo Proyecto</h1>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <app-formulario-proyecto
+        (guardar)="onGuardarProyecto($event)"
+        (cancelar)="onCancelar()">
+      </app-formulario-proyecto>
+    </mat-card-content>
+  </mat-card>
+</div>

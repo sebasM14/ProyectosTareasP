@@ -1,1 +1,38 @@
-<p>actualizar-tareas works!</p>
+<div class="container">
+  <div class="header">
+    <button mat-button color="primary" (click)="volverATareas()" class="btn-volver">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a Tareas
+    </button>
+    <h1>Editar Tarea</h1>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <div *ngIf="isLoading" class="loading-container">
+        <mat-spinner diameter="50" color="primary"></mat-spinner>
+        <p>Cargando tarea...</p>
+      </div>
+
+    
+      <div *ngIf="!isLoading && tarea">
+        <app-formulario-tareas
+          [tarea]="tarea"
+          [proyectoId]="proyectoId"
+          [modoEdicion]="true"
+          (guardar)="onGuardarTarea($event)"
+          (cancelar)="onCancelar()">
+        </app-formulario-tareas>
+      </div>
+
+    
+      <div *ngIf="!isLoading && !tarea" class="error-container">
+        <mat-icon>error_outline</mat-icon>
+        <p>No se pudo cargar la tarea</p>
+        <button mat-raised-button color="primary" (click)="volverATareas()">
+          Volver a tareas
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,1 +1,46 @@
-<p>actualizar-proyecto works!</p>
+
+ <div class="container">
+  <div class="header">
+    
+    <button mat-button color="primary" (click)="volverAProyectos()" class="btn-volver">
+        Volver a Proyectos
+    </button>
+    
+   
+  </div>
+
+
+<div class="container">
+  <div class="header">
+    <h1>Editar Proyecto</h1>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <!-- Loading -->
+      <div *ngIf="isLoading" class="loading-container">
+        <mat-spinner diameter="50" color="primary"></mat-spinner>
+        <p>Cargando proyecto...</p>
+      </div>
+
+      <!-- Formulario -->
+      <div *ngIf="!isLoading && proyecto">
+        <app-formulario-proyecto
+          [proyecto]="proyecto"
+          [modoEdicion]="true"
+          (guardar)="onGuardarProyecto($event)"
+          (cancelar)="onCancelar()">
+        </app-formulario-proyecto>
+      </div>
+
+      <!-- Error -->
+      <div *ngIf="!isLoading && !proyecto" class="error-container">
+        <mat-icon>error_outline</mat-icon>
+        <p>No se pudo cargar el proyecto</p>
+        <button mat-raised-button color="primary" (click)="onCancelar()">
+          Volver a proyectos
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

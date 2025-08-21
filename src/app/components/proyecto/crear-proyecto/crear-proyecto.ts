@@ -10,7 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './crear-proyecto.css'
 })
 export class CrearProyecto {
-  
+
+
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -18,18 +19,26 @@ export class CrearProyecto {
   ) {}
 
   onGuardarProyecto(proyectoData: any): void {
+    console.log('Datos del proyecto a crear:', proyectoData);
+    
     this.apiService.crearProyecto(proyectoData).subscribe({
-      next: () => {
+      next: (proyectoCreado) => {
+        console.log('Proyecto creado exitosamente:', proyectoCreado);
         this.snackBar.open('Proyecto creado correctamente', 'Cerrar', {
-          duration: 3000
+          duration: 3000,
+          panelClass: ['success-snackbar']
         });
         this.router.navigate(['/proyectos']);
       },
       error: (error) => {
         console.error('Error creando proyecto:', error);
         this.snackBar.open('Error al crear el proyecto', 'Cerrar', {
-          duration: 3000
+          duration: 3000,
+          panelClass: ['error-snackbar']
         });
+      },
+      complete: () => {
+        console.log('Petición de creación completada');
       }
     });
   }
@@ -37,6 +46,7 @@ export class CrearProyecto {
   onCancelar(): void {
     this.router.navigate(['/proyectos']);
   }
-
-
+   volverAProyectos(): void {
+    this.router.navigate(['/proyectos']);
+  }
 }
