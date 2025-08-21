@@ -1,91 +1,124 @@
+<div class="container mt-4">
 
-
-<div class="container">
-  <div class="header">
-    
-    <button mat-button color="primary" (click)="volverAProyectos()" class="btn-volver">
-        Volver a Proyectos
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <button class="btn btn-outline-primary" (click)="volverAProyectos()">
+      <i class="bi bi-arrow-left"></i> Volver a Proyectos
     </button>
-    
-    <h1>Tareas del Proyecto</h1>
-    
-    <button mat-raised-button color="primary" (click)="crearTarea()">
-      Nueva Tarea
+    <h1 class="h3 mb-0">Tareas del Proyecto</h1>
+    <button class="btn btn-primary" (click)="crearTarea()">
+      <i class="bi bi-plus-circle"></i> Nueva Tarea
     </button>
   </div>
 
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Lista de Tareas</mat-card-title>
-      <mat-card-subtitle *ngIf="proyectoNombre">{{ proyectoNombre }}</mat-card-subtitle>
-    </mat-card-header>
-    
-    <mat-card-content>
-      <!-- Buscador -->
-      <div class="search-container">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Buscar tareas</mat-label>
-          <input matInput [(ngModel)]="searchTerm" (input)="filtrarTareas()" 
-                 placeholder="Buscar por título o estado (completada/pendiente)">
-        </mat-form-field>
+  
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Lista de Tareas</h5>
+      <small *ngIf="proyectoNombre">{{ proyectoNombre }}</small>
+    </div>
+
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- Buscador -->
+        <div class="flex-grow-1 me-3">
+          <div class="input-group">
+            <input type="text" class="form-control"
+                   [(ngModel)]="searchTerm"
+                   (input)="filtrarTareas()"
+                   placeholder="Buscar por ID, título o estado (completada/pendiente)">
+            <button *ngIf="searchTerm" class="btn btn-outline-secondary"
+                    (click)="searchTerm=''; filtrarTareas()">
+              <i class="bi bi-x-circle"></i>
+            </button>
+          </div>
+        </div>
+
+   
+        <div>
+          <select class="form-select" style="width: auto;" [(ngModel)]="pageSize" (change)="actualizarPaginacion()">
+            <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+          </select>
+        </div>
       </div>
 
-      <!-- Loading -->
-      <div *ngIf="isLoading" class="loading-container">
-        <mat-spinner diameter="50" color="primary"></mat-spinner>
-        <p>Cargando tareas...</p>
+  
+      <div *ngIf="isLoading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2">Cargando tareas...</p>
       </div>
 
-      <!-- Lista de tareas -->
+ 
       <div *ngIf="!isLoading">
-        <!-- Mensaje si no hay tareas -->
-        <div *ngIf="tareasFiltradas.length === 0" class="no-tasks">
-          <mat-icon>assignment</mat-icon>
+        <!-- Sin tareas -->
+        <div *ngIf="paginatedTareas.length === 0" class="text-center text-muted my-4">
+          <i class="bi bi-clipboard-x fs-1"></i>
           <p>{{ searchTerm ? 'No se encontraron tareas que coincidan con la búsqueda' : 'No hay tareas registradas' }}</p>
-          <button *ngIf="!searchTerm" mat-raised-button color="primary" (click)="crearTarea()" style="margin-top: 16px;">
+          <button *ngIf="!searchTerm" class="btn btn-primary mt-2" (click)="crearTarea()">
             Crear primera tarea
           </button>
         </div>
 
-        <!-- Lista de tareas -->
-        <div class="tasks-list" *ngIf="tareasFiltradas.length > 0">
-          <mat-card *ngFor="let tarea of tareasFiltradas; trackBy: trackByTareaId" class="task-card">
-            <mat-card-content>
-              <div class="task-header">
-                <mat-checkbox [checked]="tarea.completed" (change)="toggleCompletada(tarea)"
-                              color="primary" class="task-checkbox">
-                  <span class="task-title" [class.completed]="tarea.completed">
-                    {{ tarea.title }}
-                  </span>
-                </mat-checkbox>
-                
-                <span class="task-status" [class.completed]="tarea.completed">
-                  {{ tarea.completed ? '✅ Completada' : '⏳ Pendiente' }}
+     
+        <table *ngIf="paginatedTareas.length > 0" class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Título</th>
+              <th>Usuario ID</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tarea of paginatedTareas; trackBy: trackByTareaId">
+              <td>{{ tarea.id }}</td>
+              <td>
+                <span [class.text-decoration-line-through]="tarea.completed">{{ tarea.title }}</span>
+              </td>
+              <td>{{ tarea.userId }}</td>
+              <td>
+                <span class="badge" [class.bg-success]="tarea.completed" [class.bg-warning]="!tarea.completed">
+                  {{ tarea.completed ? 'Completada' : 'Pendiente' }}
                 </span>
-              </div>
-              
-              <div class="task-details">
-                <p><strong>ID:</strong> {{ tarea.id }}</p>
-                <p><strong>Usuario ID:</strong> {{ tarea.userId }}</p>
-                <p><strong>Estado:</strong> 
-                  <span [class.text-success]="tarea.completed" [class.text-warning]="!tarea.completed">
-                    {{ tarea.completed ? 'Completada' : 'Pendiente' }}
-                  </span>
-                </p>
-              </div>
-            </mat-card-content>
-            
-            <mat-card-actions align="end">
-              <button mat-raised-button color="accent" (click)="editarTarea(tarea.id)">
-                Editar
-              </button>
-              <button mat-raised-button color="warn" (click)="eliminarTarea(tarea.id, tarea.title)">
-                Eliminar
-              </button>
-            </mat-card-actions>
-          </mat-card>
-        </div>
+              </td>
+              <td>
+                <div class="btn-group btn-group-sm" role="group">
+               
+                  <button class="btn btn-outline-success" (click)="toggleCompletada(tarea)">
+                    {{ tarea.completed ? 'Marcar pendiente' : 'Marcar completada' }}
+                  </button>
+               
+                  <button class="btn btn-warning" (click)="editarTarea(tarea.id)">
+                    <i class="bi bi-pencil"></i> Editar
+                  </button>
+                
+                  <button class="btn btn-danger" (click)="eliminarTarea(tarea.id, tarea.title)">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+   
+        <nav *ngIf="totalPages > 1">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <button class="page-link" (click)="cambiarPagina(currentPage - 1)">Anterior</button>
+            </li>
+
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+                [class.active]="currentPage === i+1">
+              <button class="page-link" (click)="cambiarPagina(i+1)">{{ i+1 }}</button>
+            </li>
+
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <button class="page-link" (click)="cambiarPagina(currentPage + 1)">Siguiente</button>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </div>
 </div>

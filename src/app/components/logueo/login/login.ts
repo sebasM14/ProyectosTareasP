@@ -19,7 +19,7 @@ export class Login {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    // Si ya está logueado, mándalo al home
+    // Si ya está logueado, lo envia al home
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/home']);
     }

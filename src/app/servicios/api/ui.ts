@@ -9,7 +9,7 @@ export class UiService {
   public mostrarMenu$: Observable<boolean> = this.mostrarMenuSubject.asObservable();
 
   constructor() {
-    // Verificar estado inicial
+    
     const estaAutenticado = localStorage.getItem('isAuthenticated') === 'true';
     this.mostrarMenuSubject.next(estaAutenticado);
   }

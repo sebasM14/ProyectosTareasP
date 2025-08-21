@@ -10,15 +10,23 @@ import { ConfirmacionModal } from '../../confirmacion-modal/confirmacion-modal/c
   selector: 'app-listar-tareas',
   standalone: false,
   templateUrl: './listar-tareas.html',
-  styleUrl: './listar-tareas.css'
+  styleUrls: ['./listar-tareas.css']
 })
 export class ListarTareas implements OnInit {
   tareas: Tareas[] = [];
   tareasFiltradas: Tareas[] = [];
+  paginatedTareas: Tareas[] = [];
+
   isLoading = true;
   searchTerm = '';
   proyectoId!: number;
   proyectoNombre: string = '';
+
+  // 🔹 Paginación
+  pageSizeOptions: number[] = [5, 10, 15, 20];
+  pageSize: number = 5;
+  currentPage: number = 1;
+  totalPages: number = 1;
 
   constructor(
     private apiService: ApiService,
@@ -37,14 +45,14 @@ export class ListarTareas implements OnInit {
     this.isLoading = true;
     this.apiService.obtenerTareasPorProyecto(this.proyectoId).subscribe({
       next: (tareasApi) => {
-        // Obtener tareas y mostarlar en interfaz
         const tareasMock = this.apiService.getTareasMock();
         const tareasFiltradasMock = tareasMock.filter(t => t.userId === this.proyectoId);
         
         this.tareas = [...tareasApi, ...tareasFiltradasMock];
         this.tareasFiltradas = this.tareas;
+        this.actualizarPaginacion();
         this.isLoading = false;
-        
+
         if (this.tareas.length > 0) {
           this.proyectoNombre = `Proyecto ${this.proyectoId}`;
         }
@@ -53,31 +61,50 @@ export class ListarTareas implements OnInit {
         console.error('Error cargando tareas API:', error);
         const tareasMock = this.apiService.getTareasMock();
         const tareasFiltradasMock = tareasMock.filter(t => t.userId === this.proyectoId);
-        
+
         this.tareas = tareasFiltradasMock;
         this.tareasFiltradas = this.tareas;
+        this.actualizarPaginacion();
         this.isLoading = false;
-        
-        this.snackBar.open('Cargando tareas locales', 'Cerrar', {
-          duration: 3000,
-        });
+
+        this.snackBar.open('Cargando tareas locales', 'Cerrar', { duration: 3000 });
       }
     });
   }
 
+
   filtrarTareas(): void {
     if (!this.searchTerm) {
       this.tareasFiltradas = this.tareas;
-      return;
+    } else {
+      const term = this.searchTerm.toLowerCase();
+      this.tareasFiltradas = this.tareas.filter(tarea =>
+        tarea.id.toString().includes(term) ||
+        (tarea.title && tarea.title.toLowerCase().includes(term)) ||
+        (tarea.completed ? 'completada' : 'pendiente').includes(term)
+      );
     }
+    this.currentPage = 1;
+    this.actualizarPaginacion();
+  }
 
-    const term = this.searchTerm.toLowerCase();
-    this.tareasFiltradas = this.tareas.filter(tarea =>
-      (tarea.title && tarea.title.toLowerCase().includes(term)) ||
-      (tarea.completed ? 'completada' : 'pendiente').includes(term)
+
+  actualizarPaginacion(): void {
+    this.totalPages = Math.ceil(this.tareasFiltradas.length / this.pageSize) || 1;
+    this.paginatedTareas = this.tareasFiltradas.slice(
+      (this.currentPage - 1) * this.pageSize,
+      this.currentPage * this.pageSize
     );
   }
 
+  cambiarPagina(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.actualizarPaginacion();
+    }
+  }
+
+ 
   crearTarea(): void {
     this.router.navigate(['crear'], { relativeTo: this.route });
   }
@@ -101,18 +128,12 @@ export class ListarTareas implements OnInit {
       if (result) {
         this.apiService.eliminarTarea(tareaId).subscribe({
           next: () => {
-            this.snackBar.open('Tarea eliminada correctamente', 'Cerrar', {
-              duration: 3000,
-              panelClass: ['success-snackbar']
-            });
-            this.cargarTareas(); // Recargar la lista
+            this.snackBar.open('Tarea eliminada correctamente', 'Cerrar', { duration: 3000, panelClass: ['success-snackbar'] });
+            this.cargarTareas();
           },
           error: (error) => {
             console.error('Error eliminando tarea:', error);
-            this.snackBar.open('Error al eliminar la tarea', 'Cerrar', {
-              duration: 3000,
-              panelClass: ['error-snackbar']
-            });
+            this.snackBar.open('Error al eliminar la tarea', 'Cerrar', { duration: 3000, panelClass: ['error-snackbar'] });
           }
         });
       }
@@ -121,26 +142,15 @@ export class ListarTareas implements OnInit {
 
   toggleCompletada(tarea: Tareas): void {
     const tareaActualizada = { ...tarea, completed: !tarea.completed };
-    
     this.apiService.actualizarTarea(tarea.id, tareaActualizada).subscribe({
       next: (tareaActualizada) => {
-        const mensaje = tareaActualizada.completed 
-          ? 'Tarea marcada como completada' 
-          : 'Tarea marcada como pendiente';
-        
-        this.snackBar.open(mensaje, 'Cerrar', {
-          duration: 2000,
-          panelClass: ['success-snackbar']
-        });
-        
+        const mensaje = tareaActualizada.completed ? 'Tarea marcada como completada' : 'Tarea marcada como pendiente';
+        this.snackBar.open(mensaje, 'Cerrar', { duration: 2000, panelClass: ['success-snackbar'] });
         this.cargarTareas();
       },
       error: (error) => {
         console.error('Error actualizando tarea:', error);
-        this.snackBar.open('Error al actualizar la tarea', 'Cerrar', {
-          duration: 3000,
-          panelClass: ['error-snackbar']
-        });
+        this.snackBar.open('Error al actualizar la tarea', 'Cerrar', { duration: 3000, panelClass: ['error-snackbar'] });
       }
     });
   }

@@ -1,68 +1,90 @@
-<div class="login-container">
-  <div class="login-card">
-    <div class="login-header">
-      <h2>Bienvenido</h2>
-      <p>Ingresa a tu cuenta</p>
+<div class="login-wrapper">
+  <!-- Lado izquierdo -->
+  <div class="login-left">
+    <div class="login-welcome">
+      <h1>👋 Hola, Bienvenido!</h1>
+      <p>
+        Accede a tu cuenta para gestionar <br />
+        tus <strong>proyectos</strong> y <strong>tareas</strong> fácilmente.
+      </p>
     </div>
-    
-    <div class="login-content">
+  </div>
+
+ 
+  <div class="login-right">
+    <div class="login-card mat-elevation-z8">
+      <h2 class="title">Inicia Sesión</h2>
+      <p class="subtitle">
+        ¿No tienes cuenta? <a href="#">Regístrate aquí</a>
+      </p>
+
       <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-        
         <!-- Usuario -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Usuario</mat-label>
-          <input matInput
-                 [(ngModel)]="username"
-                 name="username"
-                 required
-                 #userInput="ngModel">
+          <input
+            matInput
+            [(ngModel)]="username"
+            name="username"
+            required
+            #userInput="ngModel"
+          />
           <mat-error *ngIf="userInput.invalid && userInput.touched">
-            El usuario es requerido
+           
           </mat-error>
         </mat-form-field>
 
         <!-- Contraseña -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Contraseña</mat-label>
-          <input matInput
-                 type="password"
-                 [(ngModel)]="password"
-                 name="password"
-                 required
-                 #passInput="ngModel">
+          <input
+            matInput
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            required
+            #passInput="ngModel"
+          />
           <mat-error *ngIf="passInput.invalid && passInput.touched">
-            La contraseña es requerida
+           
           </mat-error>
         </mat-form-field>
 
         <!-- Mensaje de error -->
         <div *ngIf="errorMessage" class="error-message">
-          <mat-icon>error_outline</mat-icon>
+         
           <span>{{ errorMessage }}</span>
         </div>
 
         <!-- Botón login -->
-        <button mat-raised-button
-                color="primary"
-                type="submit"
-                class="full-width login-button"
-                [disabled]="isLoading">
-          <span *ngIf="!isLoading">
-            Iniciar Sesión
-          </span>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="full-width login-button"
+          [disabled]="isLoading"
+        >
+          <span *ngIf="!isLoading">Iniciar Sesión</span>
           <span *ngIf="isLoading">
             <mat-spinner diameter="20" class="loading-spinner"></mat-spinner>
-            Iniciando sesión...
+            Iniciando...
           </span>
         </button>
 
-        <!-- Hint -->
-        <div class="login-hint">
-          <p>
-            <strong>Demo:</strong>Ingresa con tu correo
-            <strong></strong>. 
-           
-          </p>
+       
+        <div class="divider">
+          <span>o</span>
+        </div>
+
+        <!-- Botón Google -->
+        <button mat-stroked-button class="full-width google-button">
+          <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" />
+          Iniciar con Google
+        </button>
+
+        <!-- Olvidó contraseña -->
+        <div class="forgot">
+          <a href="#">¿Olvidaste tu contraseña?</a>
         </div>
       </form>
     </div>

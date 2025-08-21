@@ -1,21 +1,63 @@
 .modal-title {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 600;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.modal-title mat-icon {
+  font-size: 28px;
+  animation: pulse 1.2s infinite alternate;
+}
+
+/* Animación sutil en el ícono */
+@keyframes pulse {
+  from { transform: scale(1); opacity: 0.8; }
+  to { transform: scale(1.2); opacity: 1; }
 }
 
 .modal-content {
   font-size: 15px;
-  color: #444;
+  color: #555;
   margin: 12px 0;
+  line-height: 1.5;
+  padding: 8px 0;
+}
+
+/* Opcional: sombreado y fondo */
+::ng-deep .mat-dialog-container {
+  border-radius: 16px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Entrada del modal */
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .modal-actions {
-  margin-top: 16px;
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
 }
 
-button {
-  min-width: 100px;
-  font-weight: 500;
+.modal-actions button {
+  min-width: 110px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover más cool */
+.modal-actions button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }

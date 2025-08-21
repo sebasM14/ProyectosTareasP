@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,19 +14,19 @@ import { ConfirmacionModal } from '../../confirmacion-modal/confirmacion-modal/c
   templateUrl: './listar-proyecto.html',
   styleUrls: ['./listar-proyecto.css']
 })
-export class ListarProyecto implements OnInit {
+export class ListarProyecto implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
-   'id',
-  'name',
-  'username',
-  'email',
-  'city',
-  'direccion',
-  'coordenadas',
-  'phone',
-  'website',
-  'company',
-  'acciones'
+    'id',
+    'name',
+    'username',
+    'email',
+    'city',
+    'direccion',
+    'coordenadas',
+    'phone',
+    'website',
+    'company',
+    'acciones'
   ];
 
   dataSource = new MatTableDataSource<Proyectos>([]);
@@ -43,6 +43,25 @@ export class ListarProyecto implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // 🔎 Personalizamos el filtro
+    this.dataSource.filterPredicate = (data: Proyectos, filter: string) => {
+      const normalizedFilter = filter.trim().toLowerCase();
+
+      // ✅ Filtrar por ID si es número
+      if (!isNaN(Number(normalizedFilter))) {
+        return data.id.toString().includes(normalizedFilter);
+      }
+
+      // ✅ Filtrar por texto
+      return (
+        data.name.toLowerCase().includes(normalizedFilter) ||
+        data.username.toLowerCase().includes(normalizedFilter) ||
+        data.email.toLowerCase().includes(normalizedFilter) ||
+        data.address.city.toLowerCase().includes(normalizedFilter) ||
+        data.company.name.toLowerCase().includes(normalizedFilter)
+      );
+    };
+
     this.cargarProyectos();
   }
 
@@ -127,4 +146,5 @@ export class ListarProyecto implements OnInit {
   obtenerCoordenadas(proyecto: Proyectos): string {
     return `Lat: ${proyecto.address.geo.lat}, Lng: ${proyecto.address.geo.lng}`;
   }
+  
 }

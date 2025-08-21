@@ -1,129 +1,89 @@
-
-
-
 <app-dash></app-dash>
 
-
-  
-
-<div class="container">
-  <div class="header">
-    <h1>Gestión de Proyectos</h1>
-    <button mat-raised-button color="primary" (click)="crearProyecto()">
-      Nuevo Proyecto
+<div class="container-fluid mt-4"> 
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3">Gestión de Proyectos</h1>
+    <button class="btn btn-primary" (click)="crearProyecto()">
+      <i class="bi bi-plus-circle"></i> Nuevo Proyecto
     </button>
   </div>
-  
-  <div class="table-container">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Lista de Proyectos</mat-card-title>
-      </mat-card-header>
-      
-      <mat-card-content>
-        <!-- Buscador -->
-        <div class="search-container">
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Buscar proyectos</mat-label>
-            <input matInput [(ngModel)]="searchTerm" (input)="applyFilter()" placeholder="Escribe para filtrar..."/>
-            <button *ngIf="searchTerm" matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm=''; applyFilter()">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-        </div>
-        
-        <!-- Contenedor de scroll horizontal -->
-        <div class="table-scroll-container">
-          <!-- Tabla -->
-          <div class="mat-elevation-z2">
-            <table mat-table [dataSource]="dataSource" class="mat-table" matSort>
-              <!-- ID -->
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-                <td mat-cell *matCellDef="let proyecto">{{ proyecto.id }}</td>
-              </ng-container>
-              
-              <!-- Nombre -->
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-                <td mat-cell *matCellDef="let proyecto">{{ proyecto.name }}</td>
-              </ng-container>
-              
-              <!-- Username -->
-              <ng-container matColumnDef="username">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
-                <td mat-cell *matCellDef="let proyecto">{{ proyecto.username }}</td>
-              </ng-container>
-              
-              <!-- Email -->
-              <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-                <td mat-cell *matCellDef="let proyecto">{{ proyecto.email }}</td>
-              </ng-container>
-              
-              <!-- Ciudad -->
-              <ng-container matColumnDef="city">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Ciudad</th>
-                <td mat-cell *matCellDef="let proyecto">{{ proyecto.address.city }}</td>
-              </ng-container>
-              
-              <!-- Dirección completa -->
-              <ng-container matColumnDef="direccion">
-                <th mat-header-cell *matHeaderCellDef>Dirección</th>
-                <td mat-cell *matCellDef="let proyecto">{{ obtenerDireccionCompleta(proyecto) }}</td>
-              </ng-container>
-              
-              <!-- Coordenadas -->
-              <ng-container matColumnDef="coordenadas">
-                <th mat-header-cell *matHeaderCellDef>Coordenadas</th>
-                <td mat-cell *matCellDef="let proyecto">{{ obtenerCoordenadas(proyecto) }}</td>
-              </ng-container>
 
-              <!-- Teléfono -->
-              <ng-container matColumnDef="phone">
-                <th mat-header-cell *matHeaderCellDef>Teléfono</th>
-                <td mat-cell *matCellDef="let proyecto">{{ proyecto.phone }}</td>
-              </ng-container>
-              
-              <!-- Sitio web -->
-              <ng-container matColumnDef="website">
-                <th mat-header-cell *matHeaderCellDef>Sitio Web</th>
-                <td mat-cell *matCellDef="let proyecto">{{ proyecto.website }}</td>
-              </ng-container>
-              
-              <!-- Compañía -->
-              <ng-container matColumnDef="company">
-                <th mat-header-cell *matHeaderCellDef>Compañía</th>
-                <td mat-cell *matCellDef="let proyecto">{{ proyecto.company.name }}</td>
-              </ng-container>
-              
-              <!-- Acciones -->
-              <ng-container matColumnDef="acciones">
-                <th mat-header-cell *matHeaderCellDef>Acciones</th>
-                <td mat-cell *matCellDef="let proyecto">
-                  <button mat-icon-button color="primary" (click)="verTareas(proyecto.id)">
-                    <mat-icon>visibility</mat-icon>
-                  </button>
-                  <button mat-icon-button color="accent" (click)="editarProyecto(proyecto.id)">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  <button mat-icon-button color="warn" (click)="eliminarProyecto(proyecto.id, proyecto.name)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </td>
-              </ng-container>
-              
-              <!-- Header y Rows -->
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Lista de Proyectos</h5>
+    </div>
+
+    <div class="card-body">
+     
+      <div class="d-flex justify-content-between align-items-center mb-3">
+      
+        <div class="flex-grow-1 me-3">
+          <div class="input-group">
+            <input type="text" class="form-control"
+              [(ngModel)]="searchTerm"
+              (input)="applyFilter()"
+              placeholder="Buscar proyectos por ID, nombre, email..." />
+            <button *ngIf="searchTerm" class="btn btn-outline-secondary"
+              (click)="searchTerm=''; applyFilter()">
+              <i class="bi bi-x-circle"></i>
+            </button>
           </div>
         </div>
-        
-        <!-- Paginador -->
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Seleccionar página">
+
+     
+        <mat-paginator [length]="dataSource.filteredData.length"
+                       [pageSizeOptions]="[5, 10, 15, 20]"
+                       showFirstLastButton
+                       aria-label="Selector de página">
         </mat-paginator>
-      </mat-card-content>
-    </mat-card>
+      </div>
+
+     
+      <table class="table table-hover align-middle w-100">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Ciudad</th>
+            <th>Dirección</th>
+            <th>Coordenadas</th>
+            <th>Teléfono</th>
+            <th>Sitio Web</th>
+            <th>Compañía</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+          <tr *ngFor="let proyecto of dataSource.connect() | async">
+            <td>{{ proyecto.id }}</td>
+            <td>{{ proyecto.name }}</td>
+            <td>{{ proyecto.username }}</td>
+            <td>{{ proyecto.email }}</td>
+            <td>{{ proyecto.address.city }}</td>
+            <td>{{ obtenerDireccionCompleta(proyecto) }}</td>
+            <td>{{ obtenerCoordenadas(proyecto) }}</td>
+            <td>{{ proyecto.phone }}</td>
+            <td>{{ proyecto.website }}</td>
+            <td>{{ proyecto.company.name }}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <button class="btn btn-sm btn-primary" (click)="verTareas(proyecto.id)">
+                  <i class="bi bi-eye"></i> Ver Tareas
+                </button>
+                <button class="btn btn-sm btn-warning" (click)="editarProyecto(proyecto.id)">
+                  <i class="bi bi-pencil"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProyecto(proyecto.id, proyecto.name)">
+                  <i class="bi bi-trash"></i> Borrar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

@@ -1,26 +1,33 @@
-
 <app-cabecera></app-cabecera>
-<div class="d-flex justify-content-center mt-3">
-    <div class="col-lg-10">
-        <div class="py-5 text-center container border border-success border-1 rounded-3">
-            <div class="row py-lg-5">
-              <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Servicios</h1>
-                <ul class="lead text-body-secondary text-start">
-                    <li><i class="fa fa-check  text-danger"></i>Servicios</li>
-                    <li><i class="fa fa-check  text-danger"></i>Paginacion</li>
-                    <li><i class="fa fa-check  text-danger"></i>Imagenes</li>
-                    <li><i class="fa fa-check  text-danger"></i>Tominios</li>
-                    <li><i class="fa fa-check  text-danger"></i>API Colombia</li>
-                </ul>
-                <span>
-                  <a href="#" class="btn btn-dark m-2 col-3">Detalle</a>
-                  <a href="#" class="btn btn-dark m-2 col-3">Regiones</a>
-                </span>
-              </div>
-            </div>
-        </div>
 
+<div class="hero-container">
+  <!-- 🌊 Fondo con burbujas -->
+  <div class="bubbles">
+    <span *ngFor="let b of [].constructor(12)"></span>
+  </div>
+
+  <!-- 🌟 Card central -->
+  <div class="hero-card mat-elevation-z8">
+    <h1 class="title">
+      <mat-icon color="primary" class="me-2"></mat-icon>
+      Bienvenido API <span class="gradient-text">Creada</span>
+    </h1>
+
+    <ul class="features">
+      <li><mat-icon color="primary"></mat-icon> Servicios</li>
+      <li><mat-icon color="primary"></mat-icon> Paginación</li>
+      <li><mat-icon color="primary"></mat-icon> Proyectos</li>
+      <li><mat-icon color="primary"></mat-icon> Tareas</li>
+      <li><mat-icon color="primary"></mat-icon> API Proyectos y Tareas</li>
+    </ul>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" routerLink="/proyectos">
+        <mat-icon></mat-icon> Proyectos
+      </button>
+      <button mat-raised-button color="accent" routerLink="/tareas">
+        <mat-icon></mat-icon> Tareas
+      </button>
     </div>
-
+  </div>
 </div>

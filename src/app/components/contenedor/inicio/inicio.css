@@ -1,0 +1,104 @@
+/* 🎨 Fondo principal */
+.hero-container {
+  position: relative;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+  overflow: hidden;
+}
+
+/* 🌊 Burbujas */
+.bubbles span {
+  position: absolute;
+  bottom: -100px;
+  background: rgba(8, 133, 236, 0.8);
+  border-radius: 50%;
+  animation: bubble-rise 12s infinite;
+}
+
+.bubbles span:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 8s; }
+.bubbles span:nth-child(2) { width: 60px; height: 60px; left: 25%; animation-duration: 10s; }
+.bubbles span:nth-child(3) { width: 30px; height: 30px; left: 40%; animation-duration: 7s; }
+.bubbles span:nth-child(4) { width: 80px; height: 80px; left: 55%; animation-duration: 12s; }
+.bubbles span:nth-child(5) { width: 50px; height: 50px; left: 70%; animation-duration: 9s; }
+.bubbles span:nth-child(6) { width: 25px; height: 25px; left: 85%; animation-duration: 6s; }
+
+@keyframes bubble-rise {
+  0% { transform: translateY(0) scale(1); opacity: 0.8; }
+  50% { transform: translateY(-50vh) scale(1.2); opacity: 0.6; }
+  100% { transform: translateY(-100vh) scale(0.8); opacity: 0; }
+}
+
+/* 🌟 Tarjeta central */
+.hero-card {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 4rem;
+  max-width: 1000px;
+  text-align: center;
+}
+
+/* 🔤 Título */
+.title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* 🌈 Texto degradado */
+.gradient-text {
+  background: linear-gradient(45deg, #3f51b5, #e91e63);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 📋 Lista de features */
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 2rem auto 2rem;
+  text-align: left;
+  max-width: 400px;
+  font-size: 1.2rem;
+}
+
+.features li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.6rem;
+}
+
+/* ✅ Chulos verdes grandes */
+.features .check {
+  color: #4caf50;
+  font-size: 1.6rem;
+}
+
+/* 🎛️ Botones con separación */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+button mat-icon {
+  margin-right: 0.4rem;
+}
+@media (max-width: 768px) {
+  .mat-paginator {
+    flex-direction: column;   /* Los elementos se apilan */
+    align-items: center;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .mat-paginator-page-size,
+  .mat-paginator-range-label {
+    margin: 6px 0;
+  }
+}

@@ -17,7 +17,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    // Autenticación simulada - acepta cualquier credencial
+  
     return new Observable<boolean>(observer => {
       setTimeout(() => {
         this.isAuthenticated = true;
@@ -29,7 +29,7 @@ export class AuthService {
         localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
         
         console.log('Login exitoso para usuario:', username);
-        observer.next(true); // ← Asegúrate de emitir true
+        observer.next(true); 
         observer.complete();
       }, 1000);
     });

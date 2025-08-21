@@ -107,3 +107,35 @@
     transform: translateY(0);
   }
 }
+
+
+@media (max-width: 991px) {
+  .navbar-nav {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .navbar-nav .nav-link {
+    margin: 6px 0;  /* Más espacio entre links en móvil */
+    font-size: 1.1rem;
+  }
+
+  .dropdown-menu {
+    text-align: center;
+    border-radius: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1.1rem; /* Marca más pequeña en pantallas muy chicas */
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+  }
+
+  .navbar {
+    padding: 0.5rem;
+  }
+}
