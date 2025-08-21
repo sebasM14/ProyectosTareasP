@@ -1,7 +1,4 @@
 # ProyectosTareasP
-Desarrollado por Yeison Medina
-Ingeniero De Sistemas
-
 
 Este proyecto fue generado utilizando [Angular CLI](https://github.com/angular/angular-cli) versión 20.1.3.
 
